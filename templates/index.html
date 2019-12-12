@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>RSA暗号絶対破るマン</title>
+</head>
+<body>
+    <h1>💩 RSA暗号絶対破るマン</h1>
+    <form method="post" action="/calc">
+        <p>内容<input type="text" name="number" size="50" placeholder="数字を入れたら素因数分解するで〜" ></p>
+        <p><input type="submit" value="Send"></p>
+    </form>
+    <p>💩 {{.result}}</p>
+    <p>💩 かかった時間: {{.time}}</p>
+</body>
+</html>

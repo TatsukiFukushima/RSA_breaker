@@ -14,17 +14,19 @@ var z2Last = big.NewInt(2)
 
 func main() {
 	router := gin.Default()
+	router.Static("/assets", "./assets")
 	router.LoadHTMLGlob("templates/*.html")
 	result := ""
 	var resultTime string
+	var sNumber string
 
 	router.GET("/", func(ctx *gin.Context) {
-		ctx.HTML(200, "index.html", gin.H{"result": result, "time": resultTime})
+		ctx.HTML(200, "index.html", gin.H{"number": sNumber, "result": result, "time": resultTime})
 	})
 
 	//Calc
 	router.POST("/calc", func(ctx *gin.Context) {
-		sNumber := ctx.PostForm("number")
+		sNumber = ctx.PostForm("number")
 		number, _ := new(big.Int).SetString(sNumber, 10)
 		var arrayResults []string
 
@@ -45,8 +47,11 @@ func main() {
 
 			end := time.Now()
 			resultTime = fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
-			result = strings.Join(arrayResults, ", ")
+			result = "= " + strings.Join(arrayResults, " × ")
 		}
+
+		z1Last.Set(big.NewInt(2))
+		z2Last.Set(big.NewInt(2))
 
 		ctx.Redirect(302, "/")
 	})

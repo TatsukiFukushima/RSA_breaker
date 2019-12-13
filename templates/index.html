@@ -2,15 +2,30 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>RSA暗号絶対破るマン</title>
+    <title>素因数分解するマン</title>
+    <style type="text/css" media="screen">
+        @import url("/assets/style.css");
+    </style>
 </head>
 <body>
-    <h1>💩 RSA暗号絶対破るマン</h1>
-    <form method="post" action="/calc">
-        <p>内容<input type="text" name="number" size="50" placeholder="数字を入れたら素因数分解するで〜" ></p>
-        <p><input type="submit" value="Send"></p>
-    </form>
-    <p>💩 {{.result}}</p>
-    <p>💩 かかった時間: {{.time}}</p>
+    <div class="content">
+        <h1>💩 素因数分解するマン</h1>
+        <form method="post" action="/calc" id="form" onSubmit="return check()">
+            <p><input type="text" name="number" size="50" id="number" placeholder="数字を入れたら素因数分解するで〜" ></p>
+            <p><input type="submit" value="分解する" id="btn_submit"></p>
+        </form>
+        <p>💩 {{.number}}</p>
+        <p>💩 {{.result}}</p>
+        <p>💩 かかった時間: {{.time}}</p>
+    </div>
+
+    <script>
+        function check(){
+            var number = document.forms.form.number.value;
+            if (number.length >= 50) {
+                return window.confirm('50桁を超える数字を入れると、結構な確率でエラーが起こるで。本当にええんか・・・？');
+            }
+        }
+    </script>
 </body>
 </html>

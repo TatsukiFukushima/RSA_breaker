@@ -1,8 +1,33 @@
+body {
+    margin: -20px 0;
+}
+
 h1 {
+    color: #fff;
     font-size: 32px;
 }
 
-.content {
-    width: 500px;
+.header {
+    background-color: #4f290b;
+}
+
+.header_container {
+    width: 480px;
+    margin: 0px auto;
+}
+
+.body_container {
+    width: 480px;
     margin: 30px auto;
+}
+
+/* ------ スマホ用 ----- */
+@media screen and (max-width: 480px) {
+    .header_container {
+        width: 100%;
+    }
+    
+    .body_container {
+        width: 100%;
+    }
 }

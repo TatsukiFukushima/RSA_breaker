@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>素因数分解するマン</title>
+    <title>絶対素因数分解するマン</title>
     <style type="text/css" media="screen">
         @import url("/assets/style.css");
     </style>
@@ -11,17 +11,26 @@
 <body>
     <div class="header">
         <div class="header_container">
-            <h1>素因数分解するマン</h1>
+            <h1>絶対素因数分解するマン</h1>
         </div>
     </div>
     <div class="body_container">
+        <div class="charactor">
+            <span>💩</span>
+        </div>
+
+        <p class="message">どんな大きな数字でも絶対に素因数分解したるでwww</p>
+
         <form method="post" action="/calc" id="form" onSubmit="return check()">
-            <p><input type="text" name="number" size="50" id="number" placeholder="数字を入れたら素因数分解するで〜" ></p>
-            <p><input type="submit" value="分解する" id="btn_submit"></p>
+            <p><input type="text" name="number" size="58" id="number" placeholder="ここに数字を入れるんやで。 (例: 1145141919)" ></p>
+            <p><input type="submit" value="分解" id="btn_submit"></p>
         </form>
-        <p>💩 {{.number}}</p>
-        <p>💩 {{.result}}</p>
-        <p>💩 時間: {{.time}}</p>
+        <div class="result">
+            <p>結果:</p>
+            <p>{{.number}}</p>
+            <p>{{.result}}</p>
+            <p class="time">{{.time}}</p>
+        </div>
     </div>
 
     <script>
@@ -29,6 +38,8 @@
             var number = document.forms.form.number.value;
             if (number.length >= 50) {
                 return window.confirm('50桁を超える数字を入れると、結構な確率でエラーが起こるで。本当にええんか・・・？');
+            } else if (number.length >= 30) {
+                return window.confirm('30桁を超える数字を入れると、たまに処理が重くてエラーが起こることがあるで。それでもええんか?')
             }
         }
     </script>

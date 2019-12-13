@@ -15,6 +15,18 @@ p {
     font-size: 14px;
 }
 
+.message {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.charactor {
+    font-size: 120px;
+    text-align: center;
+}
+
 .header {
     background-color: #4f290b;
 }
@@ -22,22 +34,32 @@ p {
 .header_container {
     width: 480px;
     margin: 0px auto;
+    padding: 3px;
 }
 
 .body_container {
     width: 480px;
-    margin: 30px auto;
+    margin: 10px auto;
+    padding: 10px;
 }
 
-/* ------ スマホ用 ----- */
-@media screen and (max-width: 480px) {
-    .header_container {
-        width: 100%;
-        padding: 5px;
-    }
-    
-    .body_container {
-        width: 100%;
-        padding: 10px;
-    }
+#number {
+    padding: 3px 5px;
+    font-size: 16px;
+    display: inline;
+}
+
+#btn_submit {
+    font-size: 16px;
+    display: inline;
+}
+
+.result {
+    background-color: #eee;
+    padding: 1px 15px;
+}
+
+.time {
+    font-size: 14px;
+    color: #333;
 }

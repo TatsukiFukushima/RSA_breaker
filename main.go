@@ -31,7 +31,7 @@ func main() {
 		var arrayResults []string
 
 		if number.ProbablyPrime(20) {
-			result = "兄さん、" + number.String() + " は素数でっせ"
+			result = この数字は素数やな"
 			resultTime = ""
 		} else {
 			start := time.Now()
@@ -46,7 +46,7 @@ func main() {
 			}
 
 			end := time.Now()
-			resultTime = fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
+			resultTime = "時間: " + fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
 			result = "= " + strings.Join(arrayResults, " × ")
 		}
 

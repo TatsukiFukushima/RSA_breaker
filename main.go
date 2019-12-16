@@ -29,6 +29,8 @@ func main() {
 		sNumber = ctx.PostForm("number")
 		number, _ := new(big.Int).SetString(sNumber, 10)
 		var arrayResults []string
+		z1Last.Set(big.NewInt(2))
+		z2Last.Set(big.NewInt(2))
 
 		if number.ProbablyPrime(20) {
 			result = "この数字は素数やな"
@@ -49,9 +51,6 @@ func main() {
 			resultTime = "時間: " + fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
 			result = "= " + strings.Join(arrayResults, " × ")
 		}
-
-		z1Last.Set(big.NewInt(2))
-		z2Last.Set(big.NewInt(2))
 
 		ctx.Redirect(302, "/")
 	})

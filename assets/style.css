@@ -28,17 +28,18 @@ p {
 }
 
 .header {
+    width: 100%;
     background-color: #4f290b;
 }
 
 .header_container {
-    width: 480px;
+    width: 420px;
     margin: 0px auto;
     padding: 3px;
 }
 
 .body_container {
-    width: 480px;
+    width: 420px;
     margin: 10px auto;
     padding: 10px;
 }
@@ -62,4 +63,14 @@ p {
 .time {
     font-size: 14px;
     color: #333;
+}
+
+@media screen and (max-width: 420px) {
+    .header_container {
+        width: 100%;
+    }
+
+    .body_container {
+        width: 100%;
+    }
 }

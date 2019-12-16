@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
     <title>絶対素因数分解するマン</title>
     <style type="text/css" media="screen">
         @import url("/assets/style.css");
@@ -19,10 +19,10 @@
             <span>💩</span>
         </div>
 
-        <p class="message">どんな大きな数字でも絶対に素因数分解したるでwww</p>
+        <p class="message">どんな大きな数字でも絶対に素因数分解したるで！</p>
 
         <form method="post" action="/calc" id="form" onSubmit="return check()">
-            <p><input type="text" name="number" size="58" id="number" placeholder="ここに数字を入れるんやで。 (例: 1145141919)" ></p>
+            <p><input type="text" name="number" size="50" id="number" placeholder="ここに数字を入れるんやで。 (例: 1145141919)" ></p>
             <p><input type="submit" value="分解" id="btn_submit"></p>
         </form>
         <div class="result">

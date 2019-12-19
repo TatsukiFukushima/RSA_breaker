@@ -26,30 +26,43 @@ func main() {
 
 	//Calc
 	router.POST("/calc", func(ctx *gin.Context) {
+		var (
+			number   *big.Int
+			isNumber bool
+		)
+
+		resultTime = ""
+		result = ""
+
 		sNumber = ctx.PostForm("number")
-		number, _ := new(big.Int).SetString(sNumber, 10)
-		var arrayResults []string
-		z1Last.Set(big.NewInt(2))
-		z2Last.Set(big.NewInt(2))
-
-		if number.ProbablyPrime(20) {
-			result = "この数字は素数やな"
-			resultTime = ""
+		if number, isNumber = new(big.Int).SetString(sNumber, 10); !isNumber {
+			result = "数字じゃない文字が混ざってるっぽいで"
+		} else if number.Cmp(big.NewInt(0)) <= 0 {
+			result = "0より大きい数字を入力してクレメンス"
 		} else {
-			start := time.Now()
-			for {
-				calcFactor := calcFactor(number)
-				arrayResults = append(arrayResults, calcFactor.String())
-				number.Div(number, calcFactor)
-				if number.ProbablyPrime(20) {
-					arrayResults = append(arrayResults, number.String())
-					break
-				}
-			}
+			var arrayResults []string
+			z1Last.Set(big.NewInt(2))
+			z2Last.Set(big.NewInt(2))
 
-			end := time.Now()
-			resultTime = "時間: " + fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
-			result = "= " + strings.Join(arrayResults, " × ")
+			if number.ProbablyPrime(20) {
+				result = "この数字は素数やな"
+				resultTime = ""
+			} else {
+				start := time.Now()
+				for {
+					calcFactor := calcFactor(number)
+					arrayResults = append(arrayResults, calcFactor.String())
+					number.Div(number, calcFactor)
+					if number.ProbablyPrime(20) {
+						arrayResults = append(arrayResults, number.String())
+						break
+					}
+				}
+
+				end := time.Now()
+				resultTime = "時間: " + fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
+				result = "= " + strings.Join(arrayResults, " × ")
+			}
 		}
 
 		ctx.Redirect(302, "/")
@@ -62,8 +75,6 @@ func calcFactor(n *big.Int) *big.Int {
 	z1 := z1Last
 	z2 := z2Last
 	z2_z1 := big.NewInt(0)
-	a := big.NewInt(1)
-	b := big.NewInt(1)
 	result := big.NewInt(1)
 	one := big.NewInt(1)
 	numbers := []*big.Int{big.NewInt(2), big.NewInt(3), big.NewInt(5), big.NewInt(7), big.NewInt(11), big.NewInt(13)}
@@ -76,24 +87,18 @@ func calcFactor(n *big.Int) *big.Int {
 	}
 
 	if z1.Cmp(z2) != 0 {
-		result.GCD(a, b, z2_z1.Sub(z2, z1).Abs(z2_z1), n)
+		result.GCD(nil, nil, z2_z1.Sub(z2, z1).Abs(z2_z1), n)
 		if result.Cmp(one) > 0 {
 			return result
 		}
 	}
 
 	for {
-		z1.Mul(z1, z1)
-		z1.Add(z1, one)
-		z1.Mod(z1, n)
-		z2.Mul(z2, z2)
-		z2.Add(z2, one)
-		z2.Mod(z2, n)
-		z2.Mul(z2, z2)
-		z2.Add(z2, one)
-		z2.Mod(z2, n)
+		z1.Mul(z1, z1).Add(z1, one).Mod(z1, n)
+		z2.Mul(z2, z2).Add(z2, one).Mod(z2, n)
+		z2.Mul(z2, z2).Add(z2, one).Mod(z2, n)
 
-		result.GCD(a, b, z2_z1.Sub(z2, z1).Abs(z2_z1), n)
+		result.GCD(nil, nil, z2_z1.Sub(z2, z1).Abs(z2_z1), n)
 		if result.Cmp(one) > 0 {
 			break
 		}

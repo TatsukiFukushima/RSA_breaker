@@ -58,6 +58,7 @@ p {
 .result {
     background-color: #eee;
     padding: 1px 15px;
+    overflow: auto;
 }
 
 .time {
@@ -71,6 +72,6 @@ p {
     }
 
     .body_container {
-        width: 100%;
+        width: calc(100% - 16px);
     }
 }

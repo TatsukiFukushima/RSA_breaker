@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"math/big"
+	"sort"
 	"strings"
 	"time"
 )
@@ -39,8 +40,10 @@ func main() {
 			result = "数字じゃない文字が混ざってるっぽいで"
 		} else if number.Cmp(big.NewInt(0)) <= 0 {
 			result = "0より大きい数字を入力してクレメンス"
+		} else if number.Cmp(big.NewInt(1)) == 0 {
+			result = "1は素数なんかな？ 少なくとも分解は出来んなあ。"
 		} else {
-			var arrayResults []string
+			var results results
 			z1Last.Set(big.NewInt(2))
 			z2Last.Set(big.NewInt(2))
 
@@ -51,17 +54,19 @@ func main() {
 				start := time.Now()
 				for {
 					calcFactor := calcFactor(number)
-					arrayResults = append(arrayResults, calcFactor.String())
+					results = append(results, calcFactor.String())
 					number.Div(number, calcFactor)
 					if number.ProbablyPrime(20) {
-						arrayResults = append(arrayResults, number.String())
+						results = append(results, number.String())
 						break
 					}
 				}
 
+				sort.Sort(results)
+
 				end := time.Now()
 				resultTime = "時間: " + fmt.Sprintf("%f秒\n", (end.Sub(start)).Seconds())
-				result = "= " + strings.Join(arrayResults, " × ")
+				result = "= " + strings.Join(results, " × ")
 			}
 		}
 
@@ -71,6 +76,7 @@ func main() {
 	router.Run()
 }
 
+// calcFactor 素因数を計算
 func calcFactor(n *big.Int) *big.Int {
 	z1 := z1Last
 	z2 := z2Last
@@ -112,7 +118,7 @@ func calcFactor(n *big.Int) *big.Int {
 	}
 }
 
-// isModZero 余りがゼロかどうかを判定
+// isModZero 余りがゼロかどうかを判定 小さい素数用
 func isModZero(n, m *big.Int) bool {
 	zero := big.NewInt(0)
 	module := big.NewInt(0)
@@ -123,4 +129,25 @@ func isModZero(n, m *big.Int) bool {
 	}
 	n.Mul(n, m).Add(n, module)
 	return false
+}
+
+// results 結果を文字列の配列で保存。sort用
+type results []string
+
+// Len 要素数。sort用
+func (r results) Len() int {
+	return len(r)
+}
+
+// Less iがjより小さくなる条件。sort用
+func (r results) Less(i, j int) bool {
+	iInt, _ := new(big.Int).SetString(r[i], 10)
+	jInt, _ := new(big.Int).SetString(r[j], 10)
+
+	return iInt.Cmp(jInt) < 0
+}
+
+// Swap 入れ替える方法。sort用
+func (r results) Swap(i, j int) {
+	r[i], r[j] = r[j], r[i]
 }

@@ -61,6 +61,10 @@ p {
     overflow: auto;
 }
 
+p .result_number {
+    font-size: 16px;
+}
+
 .time {
     font-size: 14px;
     color: #333;
@@ -72,6 +76,6 @@ p {
     }
 
     .body_container {
-        width: calc(100% - 16px);
+        width: calc(100% - 20px);
     }
 }

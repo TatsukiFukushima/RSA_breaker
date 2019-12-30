@@ -58,7 +58,8 @@ p {
 .result {
     background-color: #eee;
     padding: 1px 15px;
-    overflow: auto;
+    margin-bottom: 5px;
+    overflow-x: auto;
 }
 
 p .result_number {
